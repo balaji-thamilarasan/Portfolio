@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Invoice</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class=" text-center">
+    <strong>
+      <h1>Invoice</h1>
+    </strong>
+  </div>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <label for="inputEmail4">Customer Name</label>
+            <input type="text" class="form-control" id="txtcustname" placeholder="Customer Name">
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="inputPassword4">Date</label>
+            <input type="Date" class="form-control" id="txtDate">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <label for="inputEmail4">Description</label>
+            <textarea name="txtDescription" id="txtDescription" type="text" data-msg="Please enter a description" class="form-control" tabindex="4" required></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <label for="inputEmail4">Paid Amount</label>
+            <input type="text" class="form-control" id="txtPaidAmt" placeholder="Paid Amount">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <button type="submit" class="btn btn-primary" id="btnsavePrint">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div>
+          <div class="row">
+            <div class="col-lg-12 text-right">
+              <button type="button" class="btn btn-outline-secondary mb-2 mb-sm-0" id="btnPrint">Print</button>
+            </div>
+          </div>
+          <div class="card card-body p-5" id="clsprint">
+            <div class="row">
+
+              <div class="col-lg-12" id="clsprint">
+                <div class="table-responsive">
+                  <table class="table mb-4">
+                    <thead>
+                      <tr>
+                        <th class="px-0 bg-transparent border-top-0">
+                          <h6 class="text-uppercase text-muted">Invoiced From</h6>
+                          <h2 class="mb-2">COMPANY NAME</h2>
+                          <p class="text-muted mb-4">Bank Main Road,<br>Kumbakonam - 612 001<br></p>
+                          <h6 class="text-uppercase text-muted">Invoiced ID: <strong id="txtInvoice_lbl">20200001</strong></h6>
+                        </th>
+                        <th class="px-0 bg-transparent border-top-0 text-right">
+                          <h6 class="text-uppercase text-muted">Invoiced To</h6>
+                          <h2 class="mb-2" id="idMemberName">Customer Name</h2>
+                          <p class="text-muted mb-4">Bank Main Road,<br>Kumbakonam - 612 001<br></p>
+                          <h6 class="text-uppercase text-muted">Date: <strong id="idDate">7-Jul-2020</strong></h6>
+                        </th>
+                        <!-- <th class="px-0 bg-transparent border-top-0 text-right">
+                                         <h6 class="text-uppercase text-muted">Invoiced to</h6>
+                                         <h3 class="mb-2" id="idMemberName">Gopal Rao Public Library</h3>Kumbakonam - 612 001 </br>
+                                         <h6 class="text-uppercase text-muted">Date: <strong id="idDate"></strong></h6>
+                                           <!-- <h6 class="text-uppercase text-muted text right"> <strong id="idTime"></strong></h6> -->
+                        <!-- </th>  -->
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-lg-12">
+                <div class="table-responsive">
+                  <table class="table table-sm" id="table_lib">
+                    <thead>
+                      <tr>
+                        <th class="w-5">S.No.</th>
+                        <th class="w-50">Description</th>
+                        <th class="w-15 text-right">Amount</th>
+                        <!-- <th class="w-70 text-center">Book Title</th>
+                        <th class="w-5">Book Status</th>
+                        <th class="w-15 text-right">Amount</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th class="w-50 text-left">Total Amount</th>
+                        <th class="w-50 text-right" id="idTotDueAmt">0.00</th>
+                      </tr>
+                      <!-- <tr>
+                        <th class="w-50 text-left">Total Paid Amount</th>
+                        <th class="w-50 text-right" id="idTotPaidAmt">0.00</th>
+                      </tr> -->
+                    </tbody>
+                  </table>
+                </div>
+                <hr class="my-5">
+                <h6 class="text-uppercase">Note</h6>
+                <div class="text-muted mb-0">
+                  Bill Generated by
+                  <sapn id="lblUser">SA-Admin</sapn>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="https://www.jqueryscript.net/demo/Print-Specified-Area-Of-A-Page-PrintArea/demo/jquery.PrintArea.js" type="text/JavaScript" language="javascript"></script>
+  <script>
+    $(document).ready(function() {
+      toSetSession();
+      $("#txtcustname").change(function() {
+        $("#idMemberName").text($("#txtcustname").val());
+      });
+      $("#txtDate").change(function() {
+        $("#idDate").text($("#txtDate").val());
+      });
+      $("#btnsavePrint").click(function() {
+        sessionsno = sessionStorage.getItem("sno");
+        sessionsamt = sessionStorage.getItem("amt");
+        desc = $("#txtDescription").val();
+        amt = $("#txtPaidAmt").val();
+        var markup = "<tr class='row1'><td>" + sessionsno + "</td><td>" + desc + "</td><td style='float:right'>" + amt + "</td></tr>";
+        tableBody = $("#table_lib tbody");
+        tableBody.append(markup);
+        sessionsno++;
+        amt = parseFloat(sessionsamt) + parseFloat(amt);
+        sessionStorage.setItem("sno", sessionsno);
+        sessionStorage.setItem("amt", amt);
+        $("#idTotDueAmt").text(amt);
+        //sum of total amount
+
+      });
+    });
+
+    function toSetSession() {
+      sessionStorage.setItem("sno", "1");
+      sessionStorage.setItem("amt", "0");
+    }
+
+    $("#btnPrint").click(function() {
+      printArea();
+    });
+
+    function printArea() {
+      var mode = 'iframe'; //popup
+      var close = mode == "popup";
+      var options = {
+        mode: mode,
+        popClose: close
+      };
+      $("#clsprint").printArea(options);
+    }
+  </script>
+</body>
+
+</html>
